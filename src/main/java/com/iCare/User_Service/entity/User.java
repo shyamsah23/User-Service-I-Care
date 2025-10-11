@@ -1,13 +1,18 @@
 package com.iCare.User_Service.entity;
 
+
+import com.iCare.User_Service.dto.UserDTO;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString
 @Entity
 public class User {
     @Id
@@ -18,4 +23,8 @@ public class User {
     private String email;
     private String password;
     private String role;
+
+    public UserDTO toDTO(){
+        return new UserDTO(this.id,this.name,this.email,this.password,this.role);
+    }
 }
