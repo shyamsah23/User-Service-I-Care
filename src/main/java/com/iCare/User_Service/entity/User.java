@@ -1,11 +1,12 @@
 package com.iCare.User_Service.entity;
 
-
+import com.iCare.User_Service.Enums.Roles;
 import com.iCare.User_Service.dto.UserDTO;
 import jakarta.persistence.*;
 
 
 @Entity
+@Table(name="Users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,9 +15,9 @@ public class User {
     @Column(unique = true)
     private String email;
     private String password;
-    private String role;
+    private Roles role;
 
-    public User(Long id, String name, String email, String password, String role) {
+    public User(Long id, String name, String email, String password, Roles role) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -59,11 +60,11 @@ public class User {
         this.password = password;
     }
 
-    public String getRole() {
+    public Roles getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(Roles role) {
         this.role = role;
     }
 

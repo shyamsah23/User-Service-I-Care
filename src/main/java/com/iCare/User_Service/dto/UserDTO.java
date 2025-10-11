@@ -1,5 +1,6 @@
 package com.iCare.User_Service.dto;
 
+import com.iCare.User_Service.Enums.Roles;
 import com.iCare.User_Service.entity.User;
 import jakarta.persistence.Column;
 
@@ -12,9 +13,9 @@ public class UserDTO {
     @Column(unique = true)
     private String email;
     private String password;
-    private String role;
+    private Roles role;
 
-    public UserDTO(Long id, String name, String email, String password, String role) {
+    public UserDTO(Long id, String name, String email, String password, Roles role) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -57,11 +58,11 @@ public class UserDTO {
         this.password = password;
     }
 
-    public String getRole() {
+    public Roles getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(Roles role) {
         this.role = role;
     }
 
