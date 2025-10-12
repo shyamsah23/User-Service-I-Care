@@ -1,5 +1,7 @@
 package com.iCare.User_Service.dto;
 
+import com.iCare.User_Service.entity.User;
+
 public class SignUpResponseDTO {
 
     private String message;

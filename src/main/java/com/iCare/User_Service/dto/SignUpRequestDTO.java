@@ -1,6 +1,7 @@
 package com.iCare.User_Service.dto;
 
 import com.iCare.User_Service.Enums.Roles;
+import com.iCare.User_Service.entity.User;
 
 public class SignUpRequestDTO {
 
@@ -69,5 +70,9 @@ public class SignUpRequestDTO {
 
     public void setRole(Roles role) {
         this.role = role;
+    }
+
+    public User toEntity(){
+        return new User(this.id,this.username,this.name,this.email,this.password,this.role);
     }
 }
