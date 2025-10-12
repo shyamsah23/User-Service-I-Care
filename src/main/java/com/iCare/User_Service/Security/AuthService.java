@@ -7,6 +7,9 @@ import com.iCare.User_Service.dto.SignUpResponseDTO;
 import com.iCare.User_Service.entity.User;
 import com.iCare.User_Service.exception.UserException;
 import com.iCare.User_Service.repository.UserRepository;
+import org.slf4j.ILoggerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -31,15 +34,22 @@ public class AuthService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    private static final Logger logger = LoggerFactory.getLogger(AuthService.class);
+
     public LoginResponseDTO loginUser(LoginRequestDTO loginRequestDTO) throws UserException {
+        logger.info("{}",loginRequestDTO.getUsername());
+        logger.info("{}",loginRequestDTO.getPassword());
+
         Authentication auth = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginRequestDTO.getusername(),loginRequestDTO.getPassword())
+                new UsernamePasswordAuthenticationToken(loginRequestDTO.getUsername(),loginRequestDTO.getPassword())
         );
 
         if(auth == null){
             throw new UserException("Invalid Credentials");
         }
-        User user = (User) auth.getPrincipal();
+
+        CustomUserDetails userDetails = (CustomUserDetails) auth.getPrincipal();
+        User user = userDetails.getUser();
         String token = authUtil.generateToken(user);
         return new LoginResponseDTO(user.getUsername(),token);
     }
@@ -50,7 +60,6 @@ public class AuthService {
             throw new UserException("User Already Exist with Given Username");
         }
         // Hash the password
-        signUpRequestDTO.setPassword(passwordEncoder.encode(signUpRequestDTO.getPassword()));
         // Save in the database
         User savedUser = userRepository.save(new User(signUpRequestDTO.getId(), signUpRequestDTO.getUsername(), signUpRequestDTO.getName(), signUpRequestDTO.getEmail()
                 , passwordEncoder.encode(signUpRequestDTO.getPassword()), signUpRequestDTO.getRole()));

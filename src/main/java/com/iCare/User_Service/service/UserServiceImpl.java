@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+// This is extra implemenation -> we are not using it..We are using AuthService
+
 @Service
 public class UserServiceImpl implements UserService {
 

@@ -3,11 +3,16 @@ package com.iCare.User_Service.entity;
 import com.iCare.User_Service.Enums.Roles;
 import com.iCare.User_Service.dto.UserDTO;
 import jakarta.persistence.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
+import java.util.List;
 
 
 @Entity
 @Table(name="Users")
-public class User {
+public class User  {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -20,6 +25,7 @@ public class User {
 
     public User(Long id, String username,String name, String email, String password, Roles role) {
         this.id = id;
+        this.username=username;
         this.name = name;
         this.email = email;
         this.password = password;
@@ -80,4 +86,5 @@ public class User {
     public UserDTO toDTO(){
         return new UserDTO(this.id,this.username,this.name,this.email,this.password,this.role);
     }
+
 }

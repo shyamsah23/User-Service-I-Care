@@ -1,7 +1,7 @@
 package com.iCare.User_Service.controller;
 
-import com.iCare.User_Service.dto.ResponseDTO;
-import com.iCare.User_Service.dto.UserDTO;
+import com.iCare.User_Service.Security.AuthService;
+import com.iCare.User_Service.dto.*;
 import com.iCare.User_Service.entity.User;
 import com.iCare.User_Service.exception.UserException;
 import com.iCare.User_Service.service.UserService;
@@ -21,15 +21,19 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private AuthService authService;
+
     @PostMapping("/register")
-    public ResponseEntity<ResponseDTO> registerUser(@RequestBody @Valid  UserDTO userDTO) throws UserException {
-        userService.registerUser(userDTO);
-        return new ResponseEntity<>(new ResponseDTO("Account Created"), HttpStatus.CREATED);
+    public ResponseEntity<SignUpResponseDTO> registerUser(@RequestBody @Valid SignUpRequestDTO signUpRequestDTO) throws UserException {
+        SignUpResponseDTO response = authService.signUpUser(signUpRequestDTO);
+        return new ResponseEntity<>(response,HttpStatus.OK);
     }
 
     @PostMapping("/login")
-    public ResponseEntity<UserDTO> login(@RequestBody UserDTO userDTO) throws UserException {
-        UserDTO user = userService.loginUser(userDTO);
+    public ResponseEntity<LoginResponseDTO> login(@RequestBody LoginRequestDTO loginRequestDTO) throws UserException {
+
+        LoginResponseDTO user = authService.loginUser(loginRequestDTO);
         return ResponseEntity.ok(user);
     }
 
