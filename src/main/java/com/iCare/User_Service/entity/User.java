@@ -11,13 +11,14 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String username;
     private String name;
     @Column(unique = true)
     private String email;
     private String password;
     private Roles role;
 
-    public User(Long id, String name, String email, String password, Roles role) {
+    public User(Long id, String username,String name, String email, String password, Roles role) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -26,6 +27,14 @@ public class User {
     }
 
     public User() {
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public Long getId() {
@@ -69,6 +78,6 @@ public class User {
     }
 
     public UserDTO toDTO(){
-        return new UserDTO(this.id,this.name,this.email,this.password,this.role);
+        return new UserDTO(this.id,this.username,this.name,this.email,this.password,this.role);
     }
 }
