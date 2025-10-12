@@ -5,7 +5,6 @@ import com.iCare.User_Service.entity.User;
 import jakarta.persistence.Column;
 
 
-
 public class UserDTO {
 
     private Long id;
@@ -75,7 +74,7 @@ public class UserDTO {
         this.role = role;
     }
 
-    public User toEntity(){
-        return new User(this.id,this.username,this.name,this.email,this.password,this.role);
+    public User toEntity() {
+        return new User(this.id, this.username, this.name, this.email, this.password, this.role);
     }
 }

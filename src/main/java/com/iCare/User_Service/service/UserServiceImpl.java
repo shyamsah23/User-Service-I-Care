@@ -37,7 +37,7 @@ public class UserServiceImpl implements UserService {
     public UserDTO loginUser(UserDTO userDTO) throws UserException {
         User user = userRepository.findByEmail(userDTO.getEmail()).orElseThrow(() -> new UserException("User Not Found"));
 
-        if(!passwordEncoder.matches(userDTO.getPassword(),user.getPassword())) {
+        if (!passwordEncoder.matches(userDTO.getPassword(), user.getPassword())) {
             throw new UserException("Password not Matched");
         }
         user.setPassword(null);
@@ -46,7 +46,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO getUserById(Long id) throws UserException {
-        User user =userRepository.findById(id).orElseThrow(() -> new UserException("User Not found With the given Id"));
+        User user = userRepository.findById(id).orElseThrow(() -> new UserException("User Not found With the given Id"));
         return user.toDTO();
     }
 }

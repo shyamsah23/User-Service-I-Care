@@ -37,21 +37,20 @@ public class AuthService {
     private static final Logger logger = LoggerFactory.getLogger(AuthService.class);
 
     public LoginResponseDTO loginUser(LoginRequestDTO loginRequestDTO) throws UserException {
-        logger.info("{}",loginRequestDTO.getUsername());
-        logger.info("{}",loginRequestDTO.getPassword());
+        logger.info("{}", loginRequestDTO.getUsername());
 
         Authentication auth = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginRequestDTO.getUsername(),loginRequestDTO.getPassword())
+                new UsernamePasswordAuthenticationToken(loginRequestDTO.getUsername(), loginRequestDTO.getPassword())
         );
 
-        if(auth == null){
+        if (auth == null) {
             throw new UserException("Invalid Credentials");
         }
 
         CustomUserDetails userDetails = (CustomUserDetails) auth.getPrincipal();
         User user = userDetails.getUser();
         String token = authUtil.generateToken(user);
-        return new LoginResponseDTO(user.getUsername(),token);
+        return new LoginResponseDTO(user.getUsername(), token);
     }
 
     public SignUpResponseDTO signUpUser(SignUpRequestDTO signUpRequestDTO) throws UserException {
@@ -64,7 +63,7 @@ public class AuthService {
         User savedUser = userRepository.save(new User(signUpRequestDTO.getId(), signUpRequestDTO.getUsername(), signUpRequestDTO.getName(), signUpRequestDTO.getEmail()
                 , passwordEncoder.encode(signUpRequestDTO.getPassword()), signUpRequestDTO.getRole()));
 
-        return new SignUpResponseDTO("User SignUp Successfully",savedUser.getUsername());
+        return new SignUpResponseDTO("User SignUp Successfully", savedUser.getUsername());
     }
 
 }

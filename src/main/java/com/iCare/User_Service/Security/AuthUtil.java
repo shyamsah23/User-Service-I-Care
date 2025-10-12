@@ -16,16 +16,16 @@ public class AuthUtil {
     @Value("${jwt.secret.key}")
     private String signature;
 
-    private SecretKey getsecretKey(){
+    private SecretKey getsecretKey() {
         return Keys.hmacShaKeyFor(signature.getBytes(StandardCharsets.UTF_8));
     }
 
     public String generateToken(User user) {
         return Jwts.builder()
                 .subject(user.getUsername())
-                .claim("userId",user.getId().toString())
+                .claim("userId", user.getId().toString())
                 .issuedAt(new Date())
-                .expiration(new Date(System.currentTimeMillis()+ 10*1000*60))
+                .expiration(new Date(System.currentTimeMillis() + 10 * 1000 * 60))
                 .signWith(getsecretKey())
                 .compact();
     }

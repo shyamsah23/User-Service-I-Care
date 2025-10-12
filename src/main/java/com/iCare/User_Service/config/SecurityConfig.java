@@ -21,15 +21,13 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity
-                .csrf(csrf -> csrf.disable())  // disable CSRF for APIs
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/dummy").permitAll()
-                        .requestMatchers("/auth/user/**").permitAll()
-                        .requestMatchers("/auth/signup").permitAll()
-                        .anyRequest().authenticated()   // allow others only if logged in
-                )
-                .formLogin(form -> form.disable())
+        httpSecurity.csrf(csrf -> csrf.disable())  // disable CSRF for APIs
+                .authorizeHttpRequests(auth
+                        -> auth.requestMatchers("/dummy").permitAll().
+                        requestMatchers("/auth/user/**").permitAll().
+                        requestMatchers("/auth/signup").permitAll().
+                        anyRequest().authenticated()
+                ).formLogin(form -> form.disable())
                 .httpBasic(basic -> basic.disable()); // disable basic auth
 
         return httpSecurity.build();

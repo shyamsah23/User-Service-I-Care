@@ -72,7 +72,7 @@ public class SignUpRequestDTO {
         this.role = role;
     }
 
-    public User toEntity(){
-        return new User(this.id,this.username,this.name,this.email,this.password,this.role);
+    public User toEntity() {
+        return new User(this.id, this.username, this.name, this.email, this.password, this.role);
     }
 }

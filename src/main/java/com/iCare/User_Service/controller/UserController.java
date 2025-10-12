@@ -27,7 +27,7 @@ public class UserController {
     @PostMapping("/register")
     public ResponseEntity<SignUpResponseDTO> registerUser(@RequestBody @Valid SignUpRequestDTO signUpRequestDTO) throws UserException {
         SignUpResponseDTO response = authService.signUpUser(signUpRequestDTO);
-        return new ResponseEntity<>(response,HttpStatus.OK);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @PostMapping("/login")

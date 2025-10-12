@@ -11,8 +11,8 @@ import java.util.List;
 
 
 @Entity
-@Table(name="Users")
-public class User  {
+@Table(name = "Users")
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -23,9 +23,9 @@ public class User  {
     private String password;
     private Roles role;
 
-    public User(Long id, String username,String name, String email, String password, Roles role) {
+    public User(Long id, String username, String name, String email, String password, Roles role) {
         this.id = id;
-        this.username=username;
+        this.username = username;
         this.name = name;
         this.email = email;
         this.password = password;
@@ -83,8 +83,8 @@ public class User  {
         this.role = role;
     }
 
-    public UserDTO toDTO(){
-        return new UserDTO(this.id,this.username,this.name,this.email,this.password,this.role);
+    public UserDTO toDTO() {
+        return new UserDTO(this.id, this.username, this.name, this.email, this.password, this.role);
     }
 
 }
