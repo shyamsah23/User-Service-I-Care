@@ -2,36 +2,26 @@ package com.iCare.User_Service.dto;
 
 import com.iCare.User_Service.Enums.Roles;
 import com.iCare.User_Service.entity.User;
-import jakarta.persistence.Column;
 
-
-public class UserDTO {
+public class SignUpRequestDTO {
 
     private Long id;
     private String username;
     private String name;
-    @Column(unique = true)
     private String email;
     private String password;
     private Roles role;
 
-    public UserDTO(Long id, String username, String name, String email, String password, Roles role) {
+    public SignUpRequestDTO(Long id, String username, String name, String email, String password, Roles role) {
         this.id = id;
+        this.username = username;
         this.name = name;
         this.email = email;
         this.password = password;
         this.role = role;
     }
 
-    public UserDTO() {
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
+    public SignUpRequestDTO() {
     }
 
     public Long getId() {
@@ -42,6 +32,14 @@ public class UserDTO {
         this.id = id;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     public String getName() {
         return name;
     }
@@ -50,20 +48,20 @@ public class UserDTO {
         this.name = name;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public String getPassword() {
         return password;
     }
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public Roles getRole() {

@@ -1,23 +1,31 @@
 package com.iCare.User_Service.entity;
 
-
+import com.iCare.User_Service.Enums.Roles;
 import com.iCare.User_Service.dto.UserDTO;
 import jakarta.persistence.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
+import java.util.List;
 
 
 @Entity
+@Table(name = "Users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String username;
     private String name;
     @Column(unique = true)
     private String email;
     private String password;
-    private String role;
+    private Roles role;
 
-    public User(Long id, String name, String email, String password, String role) {
+    public User(Long id, String username, String name, String email, String password, Roles role) {
         this.id = id;
+        this.username = username;
         this.name = name;
         this.email = email;
         this.password = password;
@@ -25,6 +33,14 @@ public class User {
     }
 
     public User() {
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public Long getId() {
@@ -59,15 +75,16 @@ public class User {
         this.password = password;
     }
 
-    public String getRole() {
+    public Roles getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(Roles role) {
         this.role = role;
     }
 
-    public UserDTO toDTO(){
-        return new UserDTO(this.id,this.name,this.email,this.password,this.role);
+    public UserDTO toDTO() {
+        return new UserDTO(this.id, this.username, this.name, this.email, this.password, this.role);
     }
+
 }
