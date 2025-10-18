@@ -6,10 +6,10 @@ public class LoginResponseDTO {
     private String jwtToken;
     private Long id;
 
-    public LoginResponseDTO(String username, String jwtToken,Long id) {
+    public LoginResponseDTO(String username, String jwtToken, Long id) {
         this.username = username;
         this.jwtToken = jwtToken;
-        this.id=id;
+        this.id = id;
     }
 
     public LoginResponseDTO() {

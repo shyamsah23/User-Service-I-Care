@@ -50,7 +50,7 @@ public class AuthService {
         CustomUserDetails userDetails = (CustomUserDetails) auth.getPrincipal();
         User user = userDetails.getUser();
         String token = authUtil.generateToken(user);
-        return new LoginResponseDTO(user.getUsername(),token,user.getId());
+        return new LoginResponseDTO(user.getUsername(), token, user.getId());
     }
 
     public SignUpResponseDTO signUpUser(SignUpRequestDTO signUpRequestDTO) throws UserException {
