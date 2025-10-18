@@ -25,6 +25,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth
                         -> auth.requestMatchers("/dummy").permitAll().
                         requestMatchers("/auth/user/**").permitAll().
+                        requestMatchers("/v3/**").permitAll().
+                        requestMatchers("/swagger-ui/**").permitAll().
                         requestMatchers("/auth/signup").permitAll().
                         anyRequest().authenticated()
                 ).formLogin(form -> form.disable())
