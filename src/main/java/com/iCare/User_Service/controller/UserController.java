@@ -37,4 +37,9 @@ public class UserController {
         return ResponseEntity.ok(user);
     }
 
+    @GetMapping("/test")
+    public ResponseEntity<String> testToken(){
+        return new ResponseEntity<>("Done",HttpStatus.OK);
+    }
+
 }
