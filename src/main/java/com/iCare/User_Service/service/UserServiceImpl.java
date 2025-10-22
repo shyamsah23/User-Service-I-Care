@@ -25,7 +25,7 @@ public class UserServiceImpl implements UserService {
     public void registerUser(UserDTO userDTO) throws UserException {
         Optional<User> optional = userRepository.findByEmail(userDTO.getEmail());
         if (optional.isPresent()) {
-            throw new UserException("User Alraedy Present");
+            throw new UserException("User Already Present");
         }
 
         userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
