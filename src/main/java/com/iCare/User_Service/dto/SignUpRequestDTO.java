@@ -11,14 +11,16 @@ public class SignUpRequestDTO {
     private String email;
     private String password;
     private Roles role;
+    private Long profileId;
 
-    public SignUpRequestDTO(Long id, String username, String name, String email, String password, Roles role) {
+    public SignUpRequestDTO(Long id, String username, String name, String email, String password, Roles role, Long profileId) {
         this.id = id;
         this.username = username;
         this.name = name;
         this.email = email;
         this.password = password;
         this.role = role;
+        this.profileId = profileId;
     }
 
     public SignUpRequestDTO() {
@@ -72,7 +74,15 @@ public class SignUpRequestDTO {
         this.role = role;
     }
 
+    public Long getProfileId() {
+        return profileId;
+    }
+
+    public void setProfileId(Long profileId) {
+        this.profileId = profileId;
+    }
+
     public User toEntity() {
-        return new User(this.id, this.username, this.name, this.email, this.password, this.role);
+        return new User(this.id, this.username, this.name, this.email, this.password, this.role, this.profileId);
     }
 }
