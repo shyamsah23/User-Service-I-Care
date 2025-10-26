@@ -6,6 +6,7 @@ import com.iCare.User_Service.dto.UserDTO;
 import com.iCare.User_Service.entity.User;
 import com.iCare.User_Service.exception.UserException;
 import com.iCare.User_Service.repository.UserRepository;
+import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import java.util.Optional;
 // This is extra implemenation -> we are not using it..We are using AuthService
 
 @Service
+@Transactional
 public class UserServiceImpl implements UserService {
 
     @Autowired
@@ -39,12 +41,12 @@ public class UserServiceImpl implements UserService {
 
         logger.info("User created for user name = {}", userDTO.getName());
         if (userDTO.getRole().equals(Roles.DOCTOR)) {
-            logger.info("Profile service being invoked for doctor name={}",userDTO.getName());
-            Long profileId=profileServiceFeignClient.addDoctor(userDTO);
+            logger.info("Profile service being invoked for doctor name={}", userDTO.getName());
+            Long profileId = profileServiceFeignClient.addDoctor(userDTO);
             userDTO.setProfileId(profileId);
         } else if (userDTO.getRole().equals(Roles.PATIENT)) {
-            logger.info("Profile service being invoked for patient name={}",userDTO.getName());
-            Long profileId=profileServiceFeignClient.addPatient(userDTO);
+            logger.info("Profile service being invoked for patient name={}", userDTO.getName());
+            Long profileId = profileServiceFeignClient.addPatient(userDTO);
             userDTO.setProfileId(profileId);
         }
         logger.info("Profile created Successfully for name ={} with role={}", userDTO.getName(), userDTO.getRole());

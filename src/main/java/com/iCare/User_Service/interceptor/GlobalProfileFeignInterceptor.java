@@ -7,18 +7,14 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class ProfileFeignInterceptor {
+public class GlobalProfileFeignInterceptor {
 
     @Value("${secret.header.key}")
     private String secretKeyForHeader;
 
     @Bean
     public RequestInterceptor userToProfileRequestInterceptor() {
-        return new RequestInterceptor() {
-            @Override
-            public void apply(RequestTemplate template) {
-                template.header("X-Secret-Key", secretKeyForHeader);
-            }
-        };
+        return requestTemplate ->
+                requestTemplate.header("X-Secret-Key", secretKeyForHeader);
     }
 }
