@@ -5,6 +5,7 @@ import com.iCare.User_Service.dto.*;
 import com.iCare.User_Service.entity.User;
 import com.iCare.User_Service.exception.UserException;
 import com.iCare.User_Service.service.UserService;
+import com.iCare.User_Service.service.UserServiceImpl;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,10 +25,13 @@ public class UserController {
     @Autowired
     private AuthService authService;
 
+    @Autowired
+    private UserServiceImpl userServiceImpl;
+
     @PostMapping("/register")
-    public ResponseEntity<SignUpResponseDTO> registerUser(@RequestBody @Valid SignUpRequestDTO signUpRequestDTO) throws UserException {
-        SignUpResponseDTO response = authService.signUpUser(signUpRequestDTO);
-        return new ResponseEntity<>(response, HttpStatus.OK);
+    public void registerUser(@RequestBody @Valid UserDTO userDTO) throws UserException {
+//        SignUpResponseDTO response = authService.signUpUser(signUpRequestDTO);
+        userServiceImpl.registerUser(userDTO);
     }
 
     @PostMapping("/login")
@@ -38,8 +42,8 @@ public class UserController {
     }
 
     @GetMapping("/test")
-    public ResponseEntity<String> testToken(){
-        return new ResponseEntity<>("Done",HttpStatus.OK);
+    public ResponseEntity<String> testToken() {
+        return new ResponseEntity<>("Done", HttpStatus.OK);
     }
 
 }

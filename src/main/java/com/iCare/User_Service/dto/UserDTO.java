@@ -14,13 +14,16 @@ public class UserDTO {
     private String email;
     private String password;
     private Roles role;
+    private Long profileId;
 
-    public UserDTO(Long id, String username, String name, String email, String password, Roles role) {
+    public UserDTO(Long id, String username, String name, String email, String password, Roles role, Long profileId) {
         this.id = id;
         this.name = name;
+        this.username = username;
         this.email = email;
         this.password = password;
         this.role = role;
+        this.profileId = profileId;
     }
 
     public UserDTO() {
@@ -74,7 +77,15 @@ public class UserDTO {
         this.role = role;
     }
 
+    public Long getProfileId() {
+        return profileId;
+    }
+
+    public void setProfileId(Long profileId) {
+        this.profileId = profileId;
+    }
+
     public User toEntity() {
-        return new User(this.id, this.username, this.name, this.email, this.password, this.role);
+        return new User(this.id, this.username, this.name, this.email, this.password, this.role, this.profileId);
     }
 }

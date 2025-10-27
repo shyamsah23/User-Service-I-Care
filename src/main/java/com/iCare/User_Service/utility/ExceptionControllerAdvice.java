@@ -16,12 +16,12 @@ public class ExceptionControllerAdvice {
         ErrorInfo error = new ErrorInfo("Some error Occured", (long) HttpStatus.INTERNAL_SERVER_ERROR.value(), LocalDateTime.now());
         return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
-    
+
 
     @ExceptionHandler(UserException.class)
-    public ResponseEntity<ErrorInfo> exceptionHandleForUserException(UserException e){
-        ErrorInfo errorInfo = new ErrorInfo(e.getMessage(), (long) HttpStatus.INTERNAL_SERVER_ERROR.value(),LocalDateTime.now());
-        return new ResponseEntity<>(errorInfo,HttpStatus.INTERNAL_SERVER_ERROR);
+    public ResponseEntity<ErrorInfo> exceptionHandleForUserException(UserException e) {
+        ErrorInfo errorInfo = new ErrorInfo(e.getMessage(), (long) HttpStatus.INTERNAL_SERVER_ERROR.value(), LocalDateTime.now());
+        return new ResponseEntity<>(errorInfo, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
 }

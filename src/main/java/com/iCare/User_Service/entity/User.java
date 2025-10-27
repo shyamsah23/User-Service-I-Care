@@ -3,11 +3,6 @@ package com.iCare.User_Service.entity;
 import com.iCare.User_Service.Enums.Roles;
 import com.iCare.User_Service.dto.UserDTO;
 import jakarta.persistence.*;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
-import java.util.Collection;
-import java.util.List;
 
 
 @Entity
@@ -22,14 +17,16 @@ public class User {
     private String email;
     private String password;
     private Roles role;
+    private Long profileId;
 
-    public User(Long id, String username, String name, String email, String password, Roles role) {
+    public User(Long id, String username, String name, String email, String password, Roles role, Long profileId) {
         this.id = id;
         this.username = username;
         this.name = name;
         this.email = email;
         this.password = password;
         this.role = role;
+        this.profileId = profileId;
     }
 
     public User() {
@@ -83,8 +80,16 @@ public class User {
         this.role = role;
     }
 
+    public Long getProfileId() {
+        return profileId;
+    }
+
+    public void setProfileId(Long profileId) {
+        this.profileId = profileId;
+    }
+
     public UserDTO toDTO() {
-        return new UserDTO(this.id, this.username, this.name, this.email, this.password, this.role);
+        return new UserDTO(this.id, this.username, this.name, this.email, this.password, this.role, this.profileId);
     }
 
 }
