@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 @FeignClient(name = "Notification-Service", url = "${NOTIFICATION_SERVICE_URL}", configuration = GlobalProfileFeignInterceptor.class)
 public interface NotificationServiceFeignClient {
 
-    @PostMapping("/api/mail/htmlMail")
+    @PostMapping("/api/mail/sendMail")
     public void sendMail(@RequestBody EmailDTO emailDTO);
 }

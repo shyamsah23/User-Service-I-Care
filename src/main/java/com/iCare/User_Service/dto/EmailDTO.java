@@ -1,27 +1,29 @@
 package com.iCare.User_Service.dto;
 
 public class EmailDTO {
-    private Long id;
+    private Long relatedEntityId;
     private String to;
+    private String cc;
+    private String body;
     private String subject;
-    private String type;
 
     public EmailDTO() {
     }
 
-    public EmailDTO(Long id, String to, String subject, String type) {
-        this.id = id;
+    public EmailDTO(Long relatedEntityId, String to, String cc, String body, String subject) {
+        this.relatedEntityId = relatedEntityId;
         this.to = to;
+        this.cc = cc;
+        this.body = body;
         this.subject = subject;
-        this.type = type;
     }
 
-    public Long getId() {
-        return id;
+    public Long getRelatedEntityId() {
+        return relatedEntityId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setRelatedEntityId(Long relatedEntityId) {
+        this.relatedEntityId = relatedEntityId;
     }
 
     public String getTo() {
@@ -32,19 +34,27 @@ public class EmailDTO {
         this.to = to;
     }
 
+    public String getCc() {
+        return cc;
+    }
+
+    public void setCc(String cc) {
+        this.cc = cc;
+    }
+
+    public String getBody() {
+        return body;
+    }
+
+    public void setBody(String body) {
+        this.body = body;
+    }
+
     public String getSubject() {
         return subject;
     }
 
     public void setSubject(String subject) {
         this.subject = subject;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 }

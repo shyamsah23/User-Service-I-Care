@@ -1,11 +1,13 @@
 package com.iCare.User_Service.service;
 
+import com.iCare.User_Service.client.NotificationServiceFeignClient;
 import com.iCare.User_Service.dto.EmailDTO;
 import com.iCare.User_Service.entity.PasswordReset;
 import com.iCare.User_Service.entity.User;
 import com.iCare.User_Service.exception.UserException;
 import com.iCare.User_Service.repository.PasswordResetTokenRepository;
 import com.iCare.User_Service.repository.UserRepository;
+import com.iCare.User_Service.utility.NotificationConstant;
 import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +15,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.UUID;
@@ -32,6 +37,21 @@ public class PasswordResetServiceImpl implements PasswordResetService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private NotificationServiceFeignClient notificationServiceFeignClient;
+
+    private String loadTemplateWithNameAndToken(String restUrl, String name) {
+        try {
+            String template = Files.readString(Paths.get("src/main/resources/templates/forgot-password-template.html"));
+            template = template.replace("{{resetLink}}", restUrl);
+            template = template.replace("{{name}}", name);
+            return template;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Transactional
     @Override
     public void sendResetLink(String email) throws UserException {
         Optional<User> userOptional = userRepository.findByEmail(email);
@@ -53,9 +73,23 @@ public class PasswordResetServiceImpl implements PasswordResetService {
         passwordResetTokenRepository.save(passwordReset);
         log.info("password reset token generated successfully");
 
-        String restUrl = "http://localhost:8081/auth/user/reset-passowrd?token=" + token;
-        // send mail using notification service -> Need to implement method in notification Service to handle this sort of senerio
-        return;
+        String restUrl = "http://localhost:8082/auth/user/reset-passowrd?token=" + token;
+
+        String emailBody = loadTemplateWithNameAndToken(restUrl, user.getName());
+        EmailDTO emailDTO = new EmailDTO();
+        emailDTO.setRelatedEntityId(user.getId());
+        emailDTO.setTo(email);
+        emailDTO.setCc(email);
+        emailDTO.setBody(emailBody);
+        emailDTO.setSubject(NotificationConstant.PASSWORD_RESET_SUBJECT);
+        try{
+            notificationServiceFeignClient.sendMail(emailDTO);
+        } catch (Exception e) {
+            log.info("Exception while sending mail with message = {}",e.getMessage());
+        }
+
+        log.info("Mail Sent Successfully");
+
     }
 
     @Transactional
