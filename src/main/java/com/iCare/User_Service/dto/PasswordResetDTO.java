@@ -1,5 +1,6 @@
 package com.iCare.User_Service.dto;
 
+import com.iCare.User_Service.entity.PasswordReset;
 import com.iCare.User_Service.entity.User;
 import jakarta.persistence.OneToOne;
 
@@ -53,5 +54,9 @@ public class PasswordResetDTO {
 
     public void setExpireAt(LocalDateTime expireAt) {
         this.expireAt = expireAt;
+    }
+
+    public PasswordReset toEntity() {
+        return new PasswordReset(this.id,this.token,this.expireAt,this.user);
     }
 }

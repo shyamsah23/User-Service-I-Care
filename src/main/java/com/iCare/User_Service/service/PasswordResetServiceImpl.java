@@ -33,5 +33,10 @@ public class PasswordResetServiceImpl implements PasswordResetService {
         passwordReset.setToken(token);
         passwordReset.setUser(user);
         passwordReset.setExpireAt(LocalDateTime.now().plusMinutes(15));
+        passwordResetTokenRepository.save(passwordReset);
+
+        String restUrl = "http://localhost:8081/auth/user/forgot-passowrd?token="+token;
+        // send mail using notification service
+        
     }
 }
