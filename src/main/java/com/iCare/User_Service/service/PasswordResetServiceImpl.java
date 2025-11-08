@@ -11,11 +11,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.UUID;
 
+
+@Service
 public class PasswordResetServiceImpl implements PasswordResetService {
 
     Logger log = LoggerFactory.getLogger(PasswordResetServiceImpl.class);
@@ -52,10 +55,11 @@ public class PasswordResetServiceImpl implements PasswordResetService {
 
         String restUrl = "http://localhost:8081/auth/user/reset-passowrd?token=" + token;
         // send mail using notification service -> Need to implement method in notification Service to handle this sort of senerio
-
+        return;
     }
 
     @Transactional
+    @Override
     public Long resetPassword(String token, String newPassword) throws UserException {
         log.info("Request received in Service to reset the password");
         PasswordReset passwordReset = passwordResetTokenRepository.findByToken(token).
