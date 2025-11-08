@@ -1,30 +1,26 @@
-package com.iCare.User_Service.entity;
+package com.iCare.User_Service.dto;
 
-import jakarta.persistence.*;
+import com.iCare.User_Service.entity.User;
+import jakarta.persistence.OneToOne;
 
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "PassWord_Reset")
-public class PasswordReset {
+public class PasswordResetDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String token;
     private LocalDateTime expireAt;
-    @OneToOne
     private User user;
 
-    public PasswordReset() {
-    }
-
-    public PasswordReset(Long id, String token, LocalDateTime expireAt, User user) {
+    public PasswordResetDTO(Long id, String token, LocalDateTime expireAt, User user) {
         this.id = id;
         this.token = token;
         this.expireAt = expireAt;
         this.user = user;
+    }
+
+    public PasswordResetDTO() {
     }
 
     public Long getId() {
@@ -58,5 +54,4 @@ public class PasswordReset {
     public void setExpireAt(LocalDateTime expireAt) {
         this.expireAt = expireAt;
     }
-
 }
