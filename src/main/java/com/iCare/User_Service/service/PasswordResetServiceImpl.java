@@ -1,5 +1,6 @@
 package com.iCare.User_Service.service;
 
+import com.iCare.User_Service.dto.EmailDTO;
 import com.iCare.User_Service.entity.PasswordReset;
 import com.iCare.User_Service.entity.User;
 import com.iCare.User_Service.exception.UserException;
@@ -50,18 +51,18 @@ public class PasswordResetServiceImpl implements PasswordResetService {
         log.info("password reset token generated successfully");
 
         String restUrl = "http://localhost:8081/auth/user/reset-passowrd?token=" + token;
-        // send mail using notification service
+        // send mail using notification service -> Need to implement method in notification Service to handle this sort of senerio
 
     }
 
     @Transactional
-    public Long resetPassword(String token,String newPassword) throws UserException {
+    public Long resetPassword(String token, String newPassword) throws UserException {
         log.info("Request received in Service to reset the password");
         PasswordReset passwordReset = passwordResetTokenRepository.findByToken(token).
                 orElseThrow(() -> new UserException("Token is Incorrect"));
         log.info("User found");
 
-        if(passwordReset.getExpireAt().isBefore(LocalDateTime.now())) {
+        if (passwordReset.getExpireAt().isBefore(LocalDateTime.now())) {
             log.info("Reset link expired");
             throw new UserException("Reset link is expired");
         }

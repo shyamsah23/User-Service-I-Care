@@ -63,8 +63,10 @@ public class UserController {
     }
 
     @PostMapping("/reset-password")
-    public ResponseEntity<Long> resetpassword (@RequestParam String token,@RequestBody String password) {
+    public ResponseEntity<Long> resetPassword(@RequestParam String token, @RequestBody String password) throws UserException {
         logger.info("Request received in controller to reset the password");
-
+        Long id = passwordResetService.resetPassword(token, password);
+        logger.info("Password Reset Done");
+        return new ResponseEntity<>(id, HttpStatus.OK);
     }
 }
