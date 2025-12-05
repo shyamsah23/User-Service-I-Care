@@ -4,7 +4,6 @@ import com.iCare.User_Service.dto.*;
 import com.iCare.User_Service.entity.User;
 import com.iCare.User_Service.exception.UserException;
 import com.iCare.User_Service.repository.UserRepository;
-import com.iCare.User_Service.service.UserServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

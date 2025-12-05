@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/auth/user")
 @Validated
-@CrossOrigin
 public class UserController {
 
     Logger logger = LoggerFactory.getLogger(UserController.class);
