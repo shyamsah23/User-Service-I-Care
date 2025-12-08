@@ -10,4 +10,6 @@ public interface UserService {
     public UserDTO loginUser(UserDTO user) throws UserException;
 
     public UserDTO getUserById(Long id) throws UserException;
+
+    public UserDTO getUserByEmail(String email);
 }
