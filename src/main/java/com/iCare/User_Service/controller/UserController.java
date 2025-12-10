@@ -2,12 +2,9 @@ package com.iCare.User_Service.controller;
 
 import com.iCare.User_Service.Security.AuthService;
 import com.iCare.User_Service.dto.*;
-import com.iCare.User_Service.entity.User;
 import com.iCare.User_Service.exception.UserException;
 import com.iCare.User_Service.service.PasswordResetService;
-import com.iCare.User_Service.service.PasswordResetServiceImpl;
 import com.iCare.User_Service.service.UserService;
-import com.iCare.User_Service.service.UserServiceImpl;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,15 +28,11 @@ public class UserController {
     private AuthService authService;
 
     @Autowired
-    private UserServiceImpl userServiceImpl;
-
-    @Autowired
     private PasswordResetService passwordResetService;
 
     @PostMapping("/register")
     public void registerUser(@RequestBody @Valid UserDTO userDTO) throws UserException {
-//        SignUpResponseDTO response = authService.signUpUser(signUpRequestDTO);
-        userServiceImpl.registerUser(userDTO);
+        userService.registerUser(userDTO);
     }
 
     @PostMapping("/login")

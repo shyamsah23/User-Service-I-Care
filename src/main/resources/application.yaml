@@ -15,14 +15,14 @@ spring:
       client:
         registration:
           google:
-            client-id: ${CLIENT_ID}
-            client-secret: ${CLIENT_SECRET}
+            client-id: ${CLIENT_ID:1}
+            client-secret: ${CLIENT_SECRET:1}
             scope:
               - email
               - profile
 
 server:
-  port: ${SERVER_PORT:8082}
+  port: ${SERVER_PORT:8081}
 
 jwt:
   secret:
