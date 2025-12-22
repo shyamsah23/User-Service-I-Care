@@ -44,7 +44,13 @@ public class UserServiceImpl implements UserService {
             logger.info("Profile service being invoked for doctor name={}", userDTO.getName());
             Long profileId = profileServiceFeignClient.addDoctor(userDTO);
             userDTO.setProfileId(profileId);
-        } else if (userDTO.getRole().equals(Roles.PATIENT)) {
+        }
+        else if(userDTO.getRole().equals(Roles.ADMIN)){
+            logger.info("Profile service being invoked for admin name={}", userDTO.getName());
+            Long profileId = profileServiceFeignClient.addAdmin(userDTO);
+            userDTO.setProfileId(profileId);
+        }
+        else if (userDTO.getRole().equals(Roles.PATIENT)) {
             logger.info("Profile service being invoked for patient name={}", userDTO.getName());
             Long profileId = profileServiceFeignClient.addPatient(userDTO);
             userDTO.setProfileId(profileId);
