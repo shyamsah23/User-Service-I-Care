@@ -14,4 +14,7 @@ public interface ProfileServiceFeignClient {
 
     @PostMapping("/profile/patient/add")
     public Long addPatient(@RequestBody UserDTO userDTO);
+
+    @PostMapping("/profile/admin/add")
+    public Long addAdmin(@RequestBody UserDTO userDTO);
 }
