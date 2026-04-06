@@ -2,7 +2,7 @@ spring:
   application:
     name: User-Service
   datasource:
-    url: jdbc:mysql://localhost:3306/userdb
+    url: jdbc:mysql://mysql-db:3306/userdb?allowPublicKeyRetrieval=true&useSSL=false
     username: root
     password: ${DB_PASS}
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -10,6 +10,7 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+
   security:
     oauth2:
       client:
@@ -33,6 +34,11 @@ springdoc:
     path: /v3/api-docs
   swagger-ui:
     path: /swagger-ui
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://discovery-server:8761/eureka/
 
 secret:
   header:

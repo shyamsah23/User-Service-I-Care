@@ -6,7 +6,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-@FeignClient(name = "Profile-Service", url = "${PROFILE_SERVICE_URL}", configuration = GlobalProfileFeignInterceptor.class)
+@FeignClient(name = "profile-service" ,configuration = GlobalProfileFeignInterceptor.class)
 public interface ProfileServiceFeignClient {
 
     @PostMapping("/profile/doctor/add")
