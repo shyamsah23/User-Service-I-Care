@@ -28,7 +28,7 @@ public class AuthUtil {
                 .claim("emailId", user.getEmail())
                 .claim("profileId", user.getProfileId())
                 .issuedAt(new Date())
-                .expiration(new Date(System.currentTimeMillis() + 10 * 1000 * 60))
+                .expiration(new Date(System.currentTimeMillis() + 10 * 1000 * 60 * 30))
                 .signWith(getsecretKey(), Jwts.SIG.HS384)
                 .compact();
     }

@@ -73,7 +73,7 @@ public class PasswordResetServiceImpl implements PasswordResetService {
         passwordResetTokenRepository.save(passwordReset);
         log.info("password reset token generated successfully");
 
-        String restUrl = "http://localhost:8082/auth/user/reset-passowrd?token=" + token;
+        String restUrl = "http://localhost:5173/reset-password?token=" + token;
 
         String emailBody = loadTemplateWithNameAndToken(restUrl, user.getName());
         EmailDTO emailDTO = new EmailDTO();
@@ -82,10 +82,11 @@ public class PasswordResetServiceImpl implements PasswordResetService {
         emailDTO.setCc(email);
         emailDTO.setBody(emailBody);
         emailDTO.setSubject(NotificationConstant.PASSWORD_RESET_SUBJECT);
-        try{
+        try {
             notificationServiceFeignClient.sendMail(emailDTO);
         } catch (Exception e) {
-            log.info("Exception while sending mail with message = {}",e.getMessage());
+            log.error("Email sending FAILED: {}", e.getMessage(), e);
+            throw new UserException("Failed to send email");
         }
 
         log.info("Mail Sent Successfully");
